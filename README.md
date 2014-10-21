@@ -9,8 +9,8 @@ The authentication is completed when a user enters his username (which is conver
 
 ### On your machine
 * Make sure you've got python installed
-* Install all dependencies from requirements.txt
-* ```./launch.py```  
+* `pip install -r requirements.txt`
+* `./launch.py`  
   **options:**  
   -a \<address to listen on\> *(default 0.0.0.0)*  
   -p \<port to listen on\> *(default 25565)*
