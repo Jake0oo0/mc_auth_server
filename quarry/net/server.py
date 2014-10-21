@@ -240,4 +240,4 @@ class ServerFactory(Factory):
         self.public_key = crypto.export_public_key(self.keypair)
 
     def listen(self, addr, port=25565):
-        reactor.listenTCP(os.environ['RUPPELLS_SOCKETS_LOCAL_PORT'], self, interface=addr)
+        reactor.listenTCP(int(os.environ['RUPPELLS_SOCKETS_LOCAL_PORT']), self, interface=addr)
