@@ -1,5 +1,5 @@
 {
-  "name": "MC Auth Server",
+  "name": "MC-Auth-Server",
   "version": "1.0.0",
   "description": "MC Auth Server",
   "main": "http_listener.js",
@@ -11,6 +11,6 @@
   "license": "BSD",
   "dependencies": {
     "express": "~4.9.0",
-    "jade": "~1.6.0",
+    "jade": "~1.6.0"
   }
 }
