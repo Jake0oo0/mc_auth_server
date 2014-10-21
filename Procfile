@@ -1,1 +1,1 @@
-socket: ./lib/sockets-connect/rs-conn python launch_example.py server_auth
+web: ./lib/sockets-connect/rs-conn python launch_example.py server_auth
