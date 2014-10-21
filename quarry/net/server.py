@@ -4,7 +4,7 @@ from quarry.net.protocol import Factory, Protocol, ProtocolError, \
     protocol_modes, register
 from quarry.mojang import auth
 from quarry.util import crypto, types
-
+import os
 
 class ServerProtocol(Protocol):
     """This class represents a connection with a client"""
@@ -240,4 +240,4 @@ class ServerFactory(Factory):
         self.public_key = crypto.export_public_key(self.keypair)
 
     def listen(self, addr, port=25565):
-        reactor.listenTCP(port, self, interface=addr)
+        reactor.listenTCP(os.environ['RUPPELLS_SOCKETS_LOCAL_PORT'], self, interface=addr)

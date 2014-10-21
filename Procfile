@@ -1,1 +1,1 @@
-web: python launch_example.py server_auth --port
+socket: ./lib/sockets-connect/rs-conn python launch_example.py server_auth
