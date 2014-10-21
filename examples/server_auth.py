@@ -37,7 +37,7 @@ def main(args):
         usage="usage: %prog server_auth "
               "[options]")
     parser.add_option("-a", "--host",
-                      dest="host", default="",
+                      dest="host", default="0.0.0.0",
                       help="address to listen on")
     parser.add_option("-p", "--port",
                       dest="port", default="25565", type="int",
