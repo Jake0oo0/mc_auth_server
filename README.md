@@ -1,36 +1,13 @@
-# Quarry
+# Sponge MC Auth Server
 
-Minecraft protocol implementation - write your own bots, relays, proxies, etc.
+This authentication server is meant to be able to run on a single Heroku dyno, and authenticates users from the Sponge Server database. The packet handling and original files are based on the work of [Barney Gale](https://github.com/barneygale) on [Quarry](https://github.com/barneygale/quarry). The http_listener.js file is based on the work of [Ruppells](https://bitbucket.org/ruppells) on their [Ruppell's Sockets](https://devcenter.heroku.com/articles/ruppells-sockets) [demo project.](https://bitbucket.org/ruppells/nodejs-tcp-ws-chat-demo/src/539759380487?at=master). Migration to using Ruppell's sockets is the work of [Jake0oo0](https://github.com/Jake0oo0).
 
-Quarry does not implement every packet, only enough to get through the login
-sequence. Users will need to pack and unpack packets they're interested in, but
-most of the hard stuff (login, session, encryption) is taken care of for you.
+## Installing
 
-Consult http://wiki.vg/Protocol for packet structs
-
-## examples
-
-The distribution includes a few example uses of the `quarry` module.
-
-### clients
-
-* Pinger: does a "server list ping" to get motd, player count, etc
-* Player lister: joins the game, prints the player list to console, quits the
-  game
-* Chat logger: joins the game, prints in-game chat to console, slowly rotates
-
-### servers
-
-* Downtime server: kicks players with the MOTD when they try to connect
-* Auth server: authenticate users with the mojang session server, then kick
-  them
-
-### proxies
-
-* Quiet proxy: Lets users turn on "quiet" mode that hides chat from the server
-
-## requirements
-
-* python 2.7
-* pycrypto
-* twisted
+### Heroku
+* heroku create
+* heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
+* heroku addons:add ruppells-sockets
+* git push heroku master
+* Get output of: heroku config:get RUPPELLS_SOCKETS_FRONTEND_URI
+* Connect to that URI, minus the tcp:// URI identifier.
