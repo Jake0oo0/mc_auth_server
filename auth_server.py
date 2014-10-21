@@ -73,7 +73,7 @@ def main(args):
 
     # Create factory
     factory = AuthFactory()
-    factory.motd = "Sponge Auth Server"
+    factory.motd = "Sponge Authentication Server"
 
     # Listen
     factory.listen(options.host, options.port)
