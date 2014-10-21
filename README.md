@@ -17,11 +17,11 @@ The authentication is completed when a user enters his username (which is conver
 * connect to localhost
 
 ### Heroku
-* heroku create
-* heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
-* heroku addons:add ruppells-sockets
-* git push heroku master
-* Get output of: heroku config:get RUPPELLS_SOCKETS_FRONTEND_URI
+* `heroku create`
+* `heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git`
+* `heroku addons:add ruppells-sockets`
+* `git push heroku master`
+* Get output of `heroku config:get RUPPELLS_SOCKETS_FRONTEND_URI`
 * Connect to that URI, minus the tcp:// URI identifier.
 
 
