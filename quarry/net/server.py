@@ -1,4 +1,5 @@
 from twisted.internet import reactor, defer
+import base64
 
 from quarry.net.protocol import Factory, Protocol, ProtocolError, \
     protocol_modes, register
@@ -230,7 +231,8 @@ class ServerFactory(Factory):
 
     motd = "A Minecraft Server"
     max_players = 20
-    favicon = None
+    with open("server_icon.png", "rb") as image_file:
+      favicon = "data:image/png;base64,%s" % (base64.b64encode(image_file.read()))
     online_mode = True
 
     def __init__(self):
