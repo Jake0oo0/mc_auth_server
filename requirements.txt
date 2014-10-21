@@ -1,2 +1,4 @@
 pycrypto
 twisted
+service_identity
+pyopenssl
