@@ -1,11 +1,36 @@
 from quarry.net.server import ServerFactory, ServerProtocol
+from random import randrange
 
 ###
 ### AUTH SERVER
 ###   ask mojang to authenticate the user
 ###
 
+def generate_token(length):
+    """
+    generates a pronouncable token
+    """
+    cons = 'bcdfghjklmnpqrstvwxyz'
+    vows = 'aeiou'
+    token = ''
+    start = randrange(2) # begin with con or vow?
+    for i in range(0, length):
+      if i % 2 == start:
+        token += cons[randrange(21)]
+      else:
+        token += vows[randrange(5)]
+    return token
+
 class AuthProtocol(ServerProtocol):
+    def store_token(self, uuid):
+        token = generate_token(10)
+        # TODO: magic
+        # DELETE FROM register_tokens WHERE `uuid` = ?", (uuid,)
+        # INSERT INTO register_tokens (`uuid`, `token`) VALUES (?, ?)", (uuid, token)
+        self.logger.info("%s registered token %s" % (uuid, token))
+        return token
+
+
     def player_joined(self):
         # This method gets called when a player successfully joins the server.
         #   If we're in online mode (the default), this means auth with the
@@ -20,10 +45,12 @@ class AuthProtocol(ServerProtocol):
         #   or perhaps an update to a database table.
         username = self.username
         ip_addr  = self.recv_addr.host
-        self.logger.info("[%s authed with IP %s]" % (username, ip_addr))
+        uuid     = self.uuid
+        self.logger.info("[%s (%s) authed with IP %s]" % (username, uuid, ip_addr))
 
         # Kick the player.
-        self.close("Thanks, you are now registered!")
+        color_sign = u"\u00A7"
+        self.close("Thanks " + color_sign + "a" + username + color_sign + "r, your token is " + color_sign + "6" + self.store_token(uuid))
 
 
 class AuthFactory(ServerFactory):
@@ -46,7 +73,7 @@ def main(args):
 
     # Create factory
     factory = AuthFactory()
-    factory.motd = "Auth Server"
+    factory.motd = "Sponge Auth Server"
 
     # Listen
     factory.listen(options.host, options.port)
