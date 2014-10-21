@@ -5,12 +5,15 @@ This authentication server is meant to be able to run on a single Heroku dyno, a
 When a user joins, a random token is generated and stored along with the UUID.
 The authentication is completed when a user enters his username (which is converted to a UUID) and the token on the website.
 
-
 ## Installing
 
 ### On your machine
+* Make sure you've got python installed
 * Install all dependencies from requirements.txt
-* ```RUPPELLS_SOCKETS_LOCAL_PORT=25565 python launch.py```
+* ```./launch.py```  
+  **options:**  
+  -a \<address to listen on\>  
+  -p \<port to listen on\>
 * connect to localhost
 
 ### Heroku
