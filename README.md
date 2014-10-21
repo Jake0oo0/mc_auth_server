@@ -12,8 +12,8 @@ The authentication is completed when a user enters his username (which is conver
 * Install all dependencies from requirements.txt
 * ```./launch.py```  
   **options:**  
-  -a \<address to listen on\>  
-  -p \<port to listen on\>
+  -a \<address to listen on\> *(default 0.0.0.0)*  
+  -p \<port to listen on\> *(default 25565)*
 * connect to localhost
 
 ### Heroku
