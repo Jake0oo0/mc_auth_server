@@ -9,7 +9,7 @@ The authentication is completed when a user enters his username (which is conver
 
 * Set the variable `WEBSITE_POSTGRES_URI` to a [PostgreSQL connection URI](http://www.postgresql.org/docs/current/static/libpq-connect.html#AEN39029)
 
-### On your machine
+#### On your machine
 * Make sure you've got python installed
 * `pip install -r requirements.txt`
 * `./launch.py`  
@@ -18,7 +18,7 @@ The authentication is completed when a user enters his username (which is conver
   -p \<port to listen on\> *(default 25565)*
 * connect to localhost
 
-### Heroku
+#### On Heroku
 * `heroku create`
 * `heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git`
 * `heroku addons:add ruppells-sockets`
@@ -28,6 +28,7 @@ The authentication is completed when a user enters his username (which is conver
 
 
 ## Credits
-* The Minecraft packet handling and original files are based on the work of [Barney Gale](https://github.com/barneygale) on [Quarry](https://github.com/barneygale/quarry).
+* The Minecraft packet handling and original files are based on the work of @barneygale on [Quarry](https://github.com/barneygale/quarry).
 * The http_listener.js file is based on the work of [Ruppells](https://bitbucket.org/ruppells) on their [Ruppell's Sockets](https://devcenter.heroku.com/articles/ruppells-sockets) [demo project.](https://bitbucket.org/ruppells/nodejs-tcp-ws-chat-demo/src/539759380487?at=master).
-* Migration to using Ruppell's sockets is the work of [Jake0oo0](https://github.com/Jake0oo0).
+* Migration to using Ruppell's sockets is the work of @Jake0oo0.
+* Token generation and database connection was added by @jomo.
