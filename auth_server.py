@@ -3,13 +3,17 @@ from random import randrange
 from postgres import Postgres
 from os import environ
 from time import strftime
+from base64 import b64encode
 
 ###
 ### AUTH SERVER
 ###   ask mojang to authenticate the user
 ###
 
-db = Postgres(environ.get("WEBSITE_POSTGRES_URI"))
+db = None
+dburi = environ.get("WEBSITE_POSTGRES_URI")
+if dburi:
+  db = Postgres(dburi)
 
 def generate_token(length):
     """
@@ -30,8 +34,9 @@ class AuthProtocol(ServerProtocol):
     def store_token(self, uuid):
         token = generate_token(10)
         # Delete any eventual existing tokens
-        db.run("DELETE FROM register_tokens WHERE `uuid` = %(uuid)s", {"uuid": uuid})
-        db.run("INSERT INTO register_tokens (`uuid`, `token`, `created_at`) VALUES (%(uuid)S, %(token)s, %(created_at)s)", {"uuid": uuid, "token": token, "created_at": strftime('%Y-%m-%d %H:%M:%S')})
+        if db:
+          db.run("DELETE FROM register_tokens WHERE `uuid` = %(uuid)s", {"uuid": uuid})
+          db.run("INSERT INTO register_tokens (`uuid`, `token`, `created_at`) VALUES (%(uuid)S, %(token)s, %(created_at)s)", {"uuid": uuid, "token": token, "created_at": strftime('%Y-%m-%d %H:%M:%S')})
         self.logger.info("%s registered token %s" % (uuid, token))
         return token
 
@@ -79,7 +84,9 @@ def main(args):
     # Create factory
     factory = AuthFactory()
     factory.motd = "Sponge Authentication Server"
+    with open("server_icon.png", "rb") as image_file:
+      factory.favicon = "data:image/png;base64,%s" % (b64encode(image_file.read()))
 
     # Listen
-    factory.listen(options.host, options.port)
+    factory.listen(options.host, port = int(environ.get('RUPPELLS_SOCKETS_LOCAL_PORT') or options.port))
     factory.run()

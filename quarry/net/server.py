@@ -5,7 +5,6 @@ from quarry.net.protocol import Factory, Protocol, ProtocolError, \
     protocol_modes, register
 from quarry.mojang import auth
 from quarry.util import crypto, types
-import os
 
 class ServerProtocol(Protocol):
     """This class represents a connection with a client"""
@@ -231,8 +230,7 @@ class ServerFactory(Factory):
 
     motd = "A Minecraft Server"
     max_players = 20
-    with open("server_icon.png", "rb") as image_file:
-      favicon = "data:image/png;base64,%s" % (base64.b64encode(image_file.read()))
+    favicon = None
     online_mode = True
 
     def __init__(self):
@@ -242,5 +240,4 @@ class ServerFactory(Factory):
         self.public_key = crypto.export_public_key(self.keypair)
 
     def listen(self, addr, port=25565):
-        port = int(os.environ.get('RUPPELLS_SOCKETS_LOCAL_PORT') or port)
         reactor.listenTCP(port, self, interface=addr)
