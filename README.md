@@ -7,6 +7,8 @@ The authentication is completed when a user enters his username (which is conver
 
 ## Installing
 
+* Set the variable `WEBSITE_POSTGRES_URI` to a [PostgreSQL connection URI](http://www.postgresql.org/docs/current/static/libpq-connect.html#AEN39029)
+
 ### On your machine
 * Make sure you've got python installed
 * `pip install -r requirements.txt`

@@ -1,10 +1,15 @@
 from quarry.net.server import ServerFactory, ServerProtocol
 from random import randrange
+from postgres import Postgres
+from os import environ
+from time import strftime
 
 ###
 ### AUTH SERVER
 ###   ask mojang to authenticate the user
 ###
+
+db = Postgres(environ.get("WEBSITE_POSTGRES_URI"))
 
 def generate_token(length):
     """
@@ -24,9 +29,9 @@ def generate_token(length):
 class AuthProtocol(ServerProtocol):
     def store_token(self, uuid):
         token = generate_token(10)
-        # TODO: magic
-        # DELETE FROM register_tokens WHERE `uuid` = ?", (uuid,)
-        # INSERT INTO register_tokens (`uuid`, `token`) VALUES (?, ?)", (uuid, token)
+        # Delete any eventual existing tokens
+        db.run("DELETE FROM register_tokens WHERE `uuid` = %(uuid)s", {"uuid": uuid})
+        db.run("INSERT INTO register_tokens (`uuid`, `token`, `created_at`) VALUES (%(uuid)S, %(token)s, %(created_at)s)", {"uuid": uuid, "token": token, "created_at": strftime('%Y-%m-%d %H:%M:%S')})
         self.logger.info("%s registered token %s" % (uuid, token))
         return token
 

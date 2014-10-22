@@ -2,3 +2,4 @@ pycrypto
 twisted
 pyopenssl==0.12.0
 service_identity
+postgres
