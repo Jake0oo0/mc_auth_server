@@ -34,9 +34,11 @@ class AuthProtocol(ServerProtocol):
     def store_token(self, uuid):
         token = generate_token(10)
         # Delete any eventual existing tokens
+        self.logger.info(uuid)
+        self.logger.info(type(uuid))
         if db:
-          db.run("DELETE FROM register_tokens WHERE `uuid` = %(uuid)s", {"uuid": uuid})
-          db.run("INSERT INTO register_tokens (`uuid`, `token`, `created_at`) VALUES (%(uuid)S, %(token)s, %(created_at)s)", {"uuid": uuid, "token": token, "created_at": strftime('%Y-%m-%d %H:%M:%S')})
+          db.run("DELETE FROM registration_tokens WHERE CAST(uuid as text) = %(uuid)s", {"uuid": str(uuid)})
+          db.run("INSERT INTO registration_tokens (uuid, token, created_at) VALUES (%(uuid)s, %(token)s, %(created_at)s)", {"uuid": str(uuid), "token": token, "created_at": strftime('%Y-%m-%d %H:%M:%S')})
         self.logger.info("%s registered token %s" % (uuid, token))
         return token
 
