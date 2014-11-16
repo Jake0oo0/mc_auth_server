@@ -39,7 +39,10 @@ class AuthProtocol(ServerProtocol):
             # data
             "uuid=%s&token=%s" % (uuid, token),
             # headers
-            {"X-Auth-Server-Key": environ.get("WEBSITE_AUTH_KEY")}
+            {
+              "User-Agent": "Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0", # fuck you too, CloudFlare
+              "X-Auth-Server-Key": environ.get("WEBSITE_AUTH_KEY")
+            }
         )
         try:
             response = urllib2.urlopen(req).read()
