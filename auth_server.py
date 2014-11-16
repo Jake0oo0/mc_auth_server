@@ -1,19 +1,14 @@
 from quarry.net.server import ServerFactory, ServerProtocol
 from random import randrange
-from postgres import Postgres
 from os import environ
-from time import strftime
 from base64 import b64encode
+from json import loads as jsondecode
+import urllib2
 
 ###
 ### AUTH SERVER
 ###   ask mojang to authenticate the user
 ###
-
-db = None
-dburi = environ.get("WEBSITE_POSTGRES_URI")
-if dburi:
-  db = Postgres(dburi)
 
 def generate_token(length):
     """
@@ -33,12 +28,24 @@ def generate_token(length):
 class AuthProtocol(ServerProtocol):
     def store_token(self, uuid):
         token = generate_token(10)
-        # Delete any eventual existing tokens
-        if db:
-          db.run("DELETE FROM registration_tokens WHERE CAST(uuid as text) = %(uuid)s", {"uuid": str(uuid).replace('-', '')})
-          db.run("INSERT INTO registration_tokens (uuid, token, created_at) VALUES (%(uuid)s, %(token)s, %(created_at)s)", {"uuid": str(uuid).replace('-', ''), "token": token, "created_at": strftime('%Y-%m-%d %H:%M:%S')})
-        self.logger.info("%s registered token %s" % (uuid, token))
-        return token
+        req = urllib2.Request(
+            # URL
+            environ.get("WEBSITE_URI"),
+            # data
+            "uuid=%s&token=%s" % (uuid, token),
+            # headers
+            {"X-AUTH-SERVER-KEY": environ.get("WEBSITE_AUTH_KEY")}
+        )
+        try:
+            response = urllib2.urlopen(req).read()
+            if jsondecode(response) == {"success": True, "errors": {}}:
+                self.logger.info("%s registered token %s" % (uuid, token))
+                return token
+            else:
+                raise urllib2.URLError(response)
+        except urllib2.URLError, e:
+            self.logger.error(e)
+            return None
 
 
     def player_joined(self):
@@ -55,13 +62,16 @@ class AuthProtocol(ServerProtocol):
         #   or perhaps an update to a database table.
         username = self.username
         ip_addr  = self.recv_addr.host
-        uuid     = self.uuid
+        uuid     = str(self.uuid).replace('-', '')
         self.logger.info("[%s (%s) authed with IP %s]" % (username, uuid, ip_addr))
 
-        # Kick the player.
-        color_sign = u"\u00A7"
-        self.close("Thanks " + color_sign + "a" + username + color_sign + "r, your token is " + color_sign + "6" + self.store_token(uuid))
-
+        color_sign = u"\u00A7" # section sign, used for color codes in MC
+        token = self.store_token(uuid)
+        # Kick the player
+        if token:
+            self.close(("Thanks &a" + username + "&r, your token is &6" + token).replace("&", color_sign))
+        else:
+            self.close("&4Error! Please try again later, sorry.".replace("&", color_sign))
 
 class AuthFactory(ServerFactory):
     protocol = AuthProtocol
