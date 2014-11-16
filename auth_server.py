@@ -27,6 +27,11 @@ def generate_token(length):
 
 class AuthProtocol(ServerProtocol):
     def store_token(self, uuid):
+        """
+        gets a new token using `generate_token`
+        and sends it to the website
+        returns the token or None if the request failed
+        """
         token = generate_token(10)
         req = urllib2.Request(
             # URL
@@ -34,7 +39,7 @@ class AuthProtocol(ServerProtocol):
             # data
             "uuid=%s&token=%s" % (uuid, token),
             # headers
-            {"X-AUTH-SERVER-KEY": environ.get("WEBSITE_AUTH_KEY")}
+            {"X-Auth-Server-Key": environ.get("WEBSITE_AUTH_KEY")}
         )
         try:
             response = urllib2.urlopen(req).read()
