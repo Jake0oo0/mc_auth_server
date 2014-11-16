@@ -98,5 +98,7 @@ def main(args):
       factory.favicon = "data:image/png;base64,%s" % (b64encode(image_file.read()))
 
     # Listen
-    factory.listen(options.host, port = int(environ.get('RUPPELLS_SOCKETS_LOCAL_PORT') or options.port))
+    port = int(environ.get('RUPPELLS_SOCKETS_LOCAL_PORT') or options.port)
+    factory.listen(options.host, port)
+    print("Sponge Auth server listening on %s:%s" % (options.host, port))
     factory.run()
