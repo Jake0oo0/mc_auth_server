@@ -7,7 +7,10 @@ The authentication is completed when a user enters his username (which is conver
 
 ## Installing
 
-* Set the variable `WEBSITE_POSTGRES_URI` to a [PostgreSQL connection URI](http://www.postgresql.org/docs/current/static/libpq-connect.html#AEN39029)
+#### Environment variables
+
+* `WEBSITE_URI`: The full URI where uuid + token are POSTed to
+* `WEBSITE_AUTH_KEY`: The `X-AUTH-SERVER-KEY` HTTP Header
 
 #### On your machine
 * Make sure you've got python installed
