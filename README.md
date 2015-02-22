@@ -1,4 +1,4 @@
-# Sponge MC Auth Server
+# MC Auth Server
 
 This authentication server is meant to be able to run on a single Heroku dyno, and authenticates users from the Sponge Server database.
 
