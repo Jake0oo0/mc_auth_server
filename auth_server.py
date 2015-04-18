@@ -14,13 +14,13 @@ def generate_token(length):
     """
     generates a pronouncable token
     """
-    cons = 'bcdfghjklmnpqrstvwxyz'
+    cons = 'bcdfghjklmnprstvwyz'
     vows = 'aeiou'
     token = ''
     start = randrange(2) # begin with con or vow?
     for i in range(0, length):
       if i % 2 == start:
-        token += cons[randrange(21)]
+        token += cons[randrange(19)]
       else:
         token += vows[randrange(5)]
     return token
