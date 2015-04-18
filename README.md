@@ -1,4 +1,4 @@
-# Sponge MC Auth Server
+# MC Auth Server
 
 This authentication server is meant to be able to run on a single Heroku dyno, and authenticates users from the Sponge Server database.
 
@@ -34,4 +34,4 @@ The authentication is completed when a user enters his username (which is conver
 * The Minecraft packet handling and original files are based on the work of [@barneygale](https://github.com/barneygale) on [Quarry](https://github.com/barneygale/quarry).
 * The http_listener.js file is based on the work of [Ruppells](https://bitbucket.org/ruppells) on their [Ruppell's Sockets](https://devcenter.heroku.com/articles/ruppells-sockets) [demo project.](https://bitbucket.org/ruppells/nodejs-tcp-ws-chat-demo/src/539759380487?at=master).
 * Migration to using Ruppell's sockets is the work of [@Jake0oo0](https://github.com/Jake0oo0).
-* Token generation and server transmittion was added by [@jomo](https://github.com/jomo).
+* Token generation and database connection was added by [@jomo](https://github.com/jomo).
