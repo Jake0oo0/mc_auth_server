@@ -2,8 +2,15 @@
 
 This server authenticates users via Minecraft and can run on a single Heroku dyno.
 
-When a user joins, a random token is generated which is sent to your website along with the user's UUID.
-The authentication is completed when a user enters their username (which is converted to a UUID) and the token your website.
+### How it works:
+
+0. User joins the Auth Server
+0. User receives a token (password) and is disconnected
+0. The UUID and token are sent to your website  
+   You store this pair for a short while
+0. User enters their token on your website
+0. You compare this token with the stored one  
+   Authentication is complete when the tokens match
 
 Tokens are pronouncable and thus memorable.  
 Only paid accounts are accepted by MC Auth Server.
