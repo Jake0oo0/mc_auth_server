@@ -15,7 +15,14 @@ This server authenticates users via Minecraft and can run on a single Heroku dyn
 Tokens are pronouncable and thus memorable.  
 Only paid accounts are accepted by MC Auth Server.
 
-![demo gif](https://i.imgur.com/73Xd56i.gif)
+
+### UX
+
+Inside Minecraft:  
+![server demo gif](https://i.imgur.com/73Xd56i.gif)
+
+On your website:  
+![web demo gif](https://i.imgur.com/PKN0ViB.gif)
 
 See [here](https://github.com/Jake0oo0/SpongeDev/blob/0fff10d0c8c50d405acd9e2af2d7ca4da6a23c71/app/controllers/authentications_controller.rb#L27) for an example server-side implementation.
 
