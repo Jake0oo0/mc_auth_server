@@ -23,7 +23,7 @@ def generate_token(length):
         token += cons[randrange(19)]
       else:
         token += vows[randrange(5)]
-    return token
+    return token[:6] + "-" + token[6:]
 
 class AuthProtocol(ServerProtocol):
     def store_token(self, uuid):
