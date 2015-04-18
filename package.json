@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "https://github.com/Jake0oo0/sponge_auth_server",
+  "repository": "https://github.com/Jake0oo0/mc_auth_server",
   "author": "Jake0oo0",
   "contributors": ["jomo (https://github.com/jomo)"],
   "license": "BSD",

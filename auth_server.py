@@ -101,12 +101,12 @@ def main(args):
 
     # Create factory
     factory = AuthFactory()
-    factory.motd = "Sponge Authentication Server"
+    factory.motd = "Authentication Server"
     with open("server_icon.png", "rb") as image_file:
       factory.favicon = "data:image/png;base64,%s" % (b64encode(image_file.read()))
 
     # Listen
     port = int(environ.get('RUPPELLS_SOCKETS_LOCAL_PORT') or options.port)
     factory.listen(options.host, port)
-    print("Sponge Auth server listening on %s:%s" % (options.host, port))
+    print("Auth server listening on %s:%s" % (options.host, port))
     factory.run()
