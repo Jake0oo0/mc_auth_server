@@ -1,6 +1,6 @@
 # MC Auth Server
 
-This authentication server is meant to be able to run on a single Heroku dyno, and authenticates users from the Sponge Server database.
+This authentication server is meant to be able to run on a single Heroku dyno, and authenticates users via Minecraft.
 
 When a user joins, a random token is generated and stored along with the UUID.
 The authentication is completed when a user enters his username (which is converted to a UUID) and the token on the website.
