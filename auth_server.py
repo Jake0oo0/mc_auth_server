@@ -19,10 +19,7 @@ def generate_token(length):
     token = ''
     start = randrange(2) # begin with con or vow?
     for i in range(0, length):
-      if i % 2 == start:
-        token += cons[randrange(19)]
-      else:
-        token += vows[randrange(5)]
+        token += cons[randrange(19)] if i % 2 == start else vows[randrange(5)]
     return token[:6] + "-" + token[6:]
 
 class AuthProtocol(ServerProtocol):
