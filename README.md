@@ -5,6 +5,8 @@ This authentication server is meant to be able to run on a single Heroku dyno, a
 When a user joins, a random token is generated and stored along with the UUID.
 The authentication is completed when a user enters his username (which is converted to a UUID) and the token on the website.
 
+See [here](https://github.com/Jake0oo0/SpongeDev/blob/0fff10d0c8c50d405acd9e2af2d7ca4da6a23c71/app/controllers/authentications_controller.rb#L27) for an example server-side implementation.
+
 ## Installing
 
 #### Environment variables
